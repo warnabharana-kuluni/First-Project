@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCare - Advanced Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🌸 FlowCare</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">Home</a></li>
+            <li><a href="tracker.html" class="nav-item">Tracker & Settings</a></li>
+            <li><a href="calendar.html" class="nav-item active">Calendar</a></li>
+            <li><a href="log.html" class="nav-item">Daily Log</a></li>
+            <li><a href="analytics.html" class="nav-item">Analytics</a></li>
+        </ul>
+        <a href="tracker.html" class="nav-btn">Launch App ➔</a>
+    </nav>
+
+    <div class="main-container">
+        <!-- Legend Indicator Bar -->
+        <div class="card legend-card">
+            <div class="legend-item"><span class="dot period-dot"></span> Period Phase</div>
+            <div class="legend-item"><span class="dot fertile-dot"></span> Fertile Window</div>
+            <div class="legend-item"><span class="dot ovulation-dot"></span> Ovulation Day</div>
+            <div class="legend-item"><span class="dot log-dot"></span> Daily Log Entry</div>
+        </div>
+
+        <div class="card calendar-card">
+            <h2>🗓 Interactive Cycle Calendar</h2>
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

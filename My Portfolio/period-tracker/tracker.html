@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCare - Tracker & Settings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🌸 FlowCare</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">Home</a></li>
+            <li><a href="tracker.html" class="nav-item active">Tracker & Settings</a></li>
+            <li><a href="calendar.html" class="nav-item">Calendar</a></li>
+            <li><a href="log.html" class="nav-item">Daily Log</a></li>
+            <li><a href="analytics.html" class="nav-item">Analytics</a></li>
+        </ul>
+        <a href="tracker.html" class="nav-btn">Launch App ➔</a>
+    </nav>
+
+    <div class="main-container">
+        <div class="page-title">
+            <h2>⚙️ Advanced Tracker & Cycle Settings</h2>
+            <p>Customize your cycle metrics, monitor live status cards, and adjust application preferences.</p>
+        </div>
+
+        <!-- Live Status Metrics -->
+        <div class="grid-3">
+            <div class="card metric-card">
+                <span class="icon">🩸</span>
+                <div>
+                    <span class="sub-label">Next Period Countdown</span>
+                    <h2 id="homeDaysLeft">-- Days</h2>
+                    <span class="sub-label">Date: <strong id="homeNextDate">--</strong></span>
+                </div>
+            </div>
+
+            <div class="card metric-card">
+                <span class="icon">🥚</span>
+                <div>
+                    <span class="sub-label">Estimated Ovulation</span>
+                    <h2 id="homeOvulationDate">--</h2>
+                    <span class="sub-label" id="fertileWindowDisplay">Fertile Window: --</span>
+                </div>
+            </div>
+
+            <div class="card metric-card">
+                <span class="icon">🔄</span>
+                <div>
+                    <span class="sub-label">Current Phase</span>
+                    <h2 id="currentPhaseDisplay">--</h2>
+                    <span class="sub-label" id="cycleDayDisplay">Day --</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2 mt-4">
+            <!-- Advanced Cycle Form -->
+            <div class="card">
+                <h3>📝 Cycle Baseline Settings</h3>
+                <form id="advancedCycleForm">
+                    <label>Last Period Start Date:</label>
+                    <input type="date" id="homeStartDate" required>
+
+                    <div class="form-row">
+                        <div>
+                            <label>Average Cycle Length (Days):</label>
+                            <input type="number" id="homeCycleDays" value="28" min="20" max="45" required>
+                        </div>
+                        <div>
+                            <label>Period Duration (Days):</label>
+                            <input type="number" id="periodDuration" value="5" min="2" max="10" required>
+                        </div>
+                    </div>
+
+                    <div class="toggle-box">
+                        <label for="irregularToggle">
+                            <strong>Irregular Cycle Tracking Mode</strong>
+                            <p>Enable smart averaging for fluctuating cycle lengths.</p>
+                        </label>
+                        <input type="checkbox" id="irregularToggle">
+                    </div>
+
+                    <button type="submit" class="btn-primary w-100">Save & Calculate Metrics</button>
+                </form>
+            </div>
+
+            <!-- Preferences & Data Management -->
+            <div class="card">
+                <h3>🔔 Preferences & Data Privacy</h3>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div>
+                            <strong>Period Arrival Reminder</strong>
+                            <p>Get notified 2 days before predicted start.</p>
+                        </div>
+                        <input type="checkbox" id="notifyPeriod" checked>
+                    </div>
+
+                    <div class="setting-item">
+                        <div>
+                            <strong>Daily Hydration Reminders</strong>
+                            <p>Receive scheduled alerts to reach water intake goals.</p>
+                        </div>
+                        <input type="checkbox" id="notifyHydration">
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3>🛡️ Data Backup & Reset</h3>
+                <div class="data-actions">
+                    <button class="btn-secondary" onclick="exportData()">Export Data (JSON)</button>
+                    <button class="btn-danger" onclick="clearAllData()">Reset All Local Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

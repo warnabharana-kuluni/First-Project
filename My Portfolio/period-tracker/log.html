@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCare - Daily Log</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-pink: #ff3366;
+            --gradient-accent: linear-gradient(135deg, #ff3366, #ff85a2);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        .log-container {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        .log-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 30px rgba(255, 51, 102, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .log-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 51, 102, 0.2);
+            filter: blur(80px);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .log-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .log-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ff85a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .log-header p {
+            color: #a0a5b5;
+            font-size: 0.95rem;
+        }
+
+        .form-section {
+            margin-bottom: 28px;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            margin-bottom: 12px;
+            letter-spacing: 0.4px;
+        }
+
+        .input-styled {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-styled:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.35);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Interactive Mood Selector */
+        .mood-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .mood-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 14px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .mood-card input {
+            display: none;
+        }
+
+        .mood-emoji {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .mood-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #b0b5c0;
+        }
+
+        .mood-card:hover {
+            background: rgba(255, 51, 102, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .mood-card:has(input:checked) {
+            background: var(--gradient-accent);
+            border-color: var(--primary-pink);
+            box-shadow: 0 6px 20px rgba(255, 51, 102, 0.4);
+        }
+
+        .mood-card:has(input:checked) .mood-title {
+            color: #ffffff;
+        }
+
+        /* Interactive Symptoms Chips */
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 12px;
+        }
+
+        .symptom-chip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #d1d5db;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .symptom-chip input {
+            display: none;
+        }
+
+        .symptom-chip:hover {
+            background: rgba(255, 51, 102, 0.12);
+            border-color: rgba(255, 51, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .symptom-chip:has(input:checked) {
+            background: var(--gradient-accent);
+            color: #ffffff;
+            border-color: var(--primary-pink);
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.35);
+            font-weight: 600;
+        }
+
+        /* Water Slider Styling */
+        .water-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .water-display {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #3a86ef;
+            margin-bottom: 12px;
+        }
+
+        .water-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            accent-color: #3a86ef;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            margin-top: 15px;
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 51, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 51, 102, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .log-card { padding: 25px; }
+            .mood-options { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🌸 FlowCare</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">Home</a></li>
+            <li><a href="tracker.html" class="nav-item">Tracker & Settings</a></li>
+            <li><a href="calendar.html" class="nav-item">Calendar</a></li>
+            <li><a href="log.html" class="nav-item active">Daily Log</a></li>
+            <li><a href="analytics.html" class="nav-item">Analytics</a></li>
+        </ul>
+        <a href="tracker.html" class="nav-btn">Launch App ➔</a>
+    </nav>
+
+    <div class="main-container log-container">
+        <div class="card log-card">
+            <div class="log-header">
+                <h2>📝 Daily Wellness Log</h2>
+                <p>Track your symptoms, mood, and hydration seamlessly</p>
+            </div>
+
+            <form id="dailyLogForm">
+                <!-- Date Picker Section -->
+                <div class="form-section">
+                    <label for="logDate" class="section-label">📅 Select Date</label>
+                    <input type="date" id="logDate" class="input-styled" required>
+                </div>
+
+                <!-- Interactive Mood Selection -->
+                <div class="form-section">
+                    <label class="section-label">🎭 How are you feeling today?</label>
+                    <div class="mood-options">
+                        <label class="mood-card">
+                            <input type="radio" name="moodSelect" value="😊 Happy" checked onchange="document.getElementById('logMood').value=this.value">
+                            <span class="mood-emoji">😊</span>
+                            <span class="mood-title">Happy</span>
+                        </label>
+                        <label class="mood-card">
+                            <input type="radio" name="moodSelect" value="⚡ Energetic" onchange="document.getElementById('logMood').value=this.value">
+                            <span class="mood-emoji">⚡</span>
+                            <span class="mood-title">Energetic</span>
+                        </label>
+                        <label class="mood-card">
+                            <input type="radio" name="moodSelect" value="😴 Tired" onchange="document.getElementById('logMood').value=this.value">
+                            <span class="mood-emoji">😴</span>
+                            <span class="mood-title">Tired</span>
+                        </label>
+                        <label class="mood-card">
+                            <input type="radio" name="moodSelect" value="😭 Sad" onchange="document.getElementById('logMood').value=this.value">
+                            <span class="mood-emoji">😭</span>
+                            <span class="mood-title">Sad</span>
+                        </label>
+                        <label class="mood-card">
+                            <input type="radio" name="moodSelect" value="😠 Irritated" onchange="document.getElementById('logMood').value=this.value">
+                            <span class="mood-emoji">😠</span>
+                            <span class="mood-title">Irritated</span>
+                        </label>
+                    </div>
+                    <input type="hidden" id="logMood" value="😊 Happy">
+                </div>
+
+                <!-- Multi-Select Symptoms Grid -->
+                <div class="form-section">
+                    <label class="section-label">🩺 Symptoms Experienced</label>
+                    <div class="symptoms-grid">
+                        <label class="symptom-chip">
+                            <input type="checkbox" value="Cramps" class="symptom"> 🩸 Cramps
+                        </label>
+                        <label class="symptom-chip">
+                            <input type="checkbox" value="Headache" class="symptom"> 🤕 Headache
+                        </label>
+                        <label class="symptom-chip">
+                            <input type="checkbox" value="Acne" class="symptom"> ✨ Acne
+                        </label>
+                        <label class="symptom-chip">
+                            <input type="checkbox" value="Bloating" class="symptom"> 🎈 Bloating
+                        </label>
+                        <label class="symptom-chip">
+                            <input type="checkbox" value="Backache" class="symptom"> 🦴 Backache
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Interactive Water Intake Range Slider -->
+                <div class="form-section">
+                    <label class="section-label">💧 Hydration Level</label>
+                    <div class="water-card">
+                        <div class="water-display"><span id="waterVal">2.0</span> Liters</div>
+                        <input type="range" id="logWater" class="water-slider" min="0" max="5" step="0.25" value="2.0" oninput="document.getElementById('waterVal').innerText=this.value">
+                    </div>
+                </div>
+
+                <!-- Notes / Additional Journaling -->
+                <div class="form-section">
+                    <label for="logNotes" class="section-label">✏️ Personal Notes & Observations</label>
+                    <textarea id="logNotes" class="input-styled" rows="3" placeholder="Write down any notes about your day, food intake, or energy..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit">
+                    <span>Save Today's Log</span> ✨
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

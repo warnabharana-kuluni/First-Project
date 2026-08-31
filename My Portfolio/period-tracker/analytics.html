@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCare - Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ff3366;
+            --primary-blue: #3a86ef;
+            --gradient-accent: linear-gradient(135deg, #ff3366, #ff85a2);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        .analytics-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        /* Top Overview Stat Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 51, 102, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-info h4 {
+            font-size: 0.85rem;
+            color: #a0a5b5;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-info p {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* Chart Styling */
+        .chart-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 30px rgba(58, 134, 239, 0.12);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 35px;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 220px;
+            height: 220px;
+            background: rgba(58, 134, 239, 0.18);
+            filter: blur(90px);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .analytics-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ffffff, #ff85a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            min-height: 320px;
+            width: 100%;
+        }
+
+        /* Modern Custom Data Table */
+        .table-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 10px;
+        }
+
+        .data-table th {
+            padding: 16px 20px;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a0a5b5;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-table td {
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .data-table tbody tr td:first-child {
+            border-top-left-radius: 14px;
+            border-bottom-left-radius: 14px;
+            border-left: 1px solid var(--glass-border);
+        }
+
+        .data-table tbody tr td:last-child {
+            border-top-right-radius: 14px;
+            border-bottom-right-radius: 14px;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        .data-table tbody tr:hover td {
+            background: rgba(255, 51, 102, 0.15);
+            border-color: rgba(255, 51, 102, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Symptom Badge Styling */
+        .symptom-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .analytics-container { padding: 0 10px; }
+            .chart-card, .table-card { padding: 22px; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🌸 FlowCare</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">Home</a></li>
+            <li><a href="tracker.html" class="nav-item">Tracker & Settings</a></li>
+            <li><a href="calendar.html" class="nav-item">Calendar</a></li>
+            <li><a href="log.html" class="nav-item">Daily Log</a></li>
+            <li><a href="analytics.html" class="nav-item active">Analytics</a></li>
+        </ul>
+        <a href="tracker.html" class="nav-btn">Launch App ➔</a>
+    </nav>
+
+    <div class="main-container analytics-container">
+        <!-- Overview Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">💧</div>
+                <div class="stat-info">
+                    <h4>Avg. Water Intake</h4>
+                    <p id="avgWaterStat">0.0 L</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-info">
+                    <h4>Total Logs</h4>
+                    <p id="totalLogsStat">0 Days</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎭</div>
+                <div class="stat-info">
+                    <h4>Top Mood</h4>
+                    <p id="topMoodStat">N/A</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-1">
+            <!-- Chart Section -->
+            <div class="card chart-card">
+                <h2 class="analytics-title">📊 Water Intake Trend</h2>
+                <div class="chart-wrapper">
+                    <canvas id="waterChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Data Table Section -->
+            <div class="card table-card">
+                <h2 class="analytics-title">📜 Logs History</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Mood</th>
+                            <th>Symptoms</th>
+                            <th>Water (L)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

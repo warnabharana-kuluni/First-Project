@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCare - Your Intelligent Health Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">🌸 FlowCare</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item active">Home</a></li>
+            <li><a href="tracker.html" class="nav-item">Tracker & Settings</a></li>
+            <li><a href="calendar.html" class="nav-item">Calendar</a></li>
+            <li><a href="log.html" class="nav-item">Daily Log</a></li>
+            <li><a href="analytics.html" class="nav-item">Analytics</a></li>
+        </ul>
+        <a href="tracker.html" class="nav-btn">Launch App ➔</a>
+    </nav>
+
+    <div class="main-container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <span class="hero-badge">✨ Smart, Private & Beautiful</span>
+                <h1>Understand Your Body's <span class="gradient-text">Natural Rhythm</span></h1>
+                <p>FlowCare helps you track your menstrual cycle, daily moods, hydration levels, and overall wellness with precision and 100% data privacy.</p>
+
+                <div class="hero-actions">
+                    <a href="tracker.html" class="btn-primary glow">Get Started Free ➔</a>
+                    <a href="analytics.html" class="btn-secondary">View Insights 📊</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>100%</h3>
+                        <p>Private & On-Device</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>28 Days</h3>
+                        <p>Cycle Insights</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Smart</h3>
+                        <p>Ovulation Predictions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="app-preview-card glass-panel">
+                    <div class="preview-header">
+                        <span class="preview-badge">🌸 Live Overview</span>
+                        <span class="status-dot"></span>
+                    </div>
+                    
+                    <div class="quick-status">
+                        <div class="status-circle-container">
+                            <div class="status-circle">
+                                <span class="circle-days" id="homeDaysLeft">--</span>
+                                <span class="circle-label">Days Left</span>
+                            </div>
+                        </div>
+                        <div class="status-info">
+                            <span class="phase-tag" id="currentPhaseDisplay">Follicular Phase</span>
+                            <p class="next-date-text">Next Period: <strong id="homeNextDate">--</strong></p>
+                            <p class="fertile-text" id="fertileWindowDisplay">Fertile Window: --</p>
+                        </div>
+                    </div>
+
+                    <div class="mini-timeline">
+                        <div class="timeline-step active" title="Menstrual">🩸</div>
+                        <div class="timeline-step current" title="Follicular">🌱</div>
+                        <div class="timeline-step" title="Ovulation">🥚</div>
+                        <div class="timeline-step" title="Luteal">🍂</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-title">
+                <h2>✨ Designed for Your Daily Wellness</h2>
+                <p>Everything you need to track, analyze, and optimize your health in one place.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <div class="icon-wrapper">🔮</div>
+                    <h3>Smart Cycle Predictions</h3>
+                    <p>Accurately estimates your next period, ovulation day, and fertile window based on your unique cycle parameters.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="icon-wrapper">📝</div>
+                    <h3>Symptom & Mood Journal</h3>
+                    <p>Log daily physical symptoms, mood variations, and hydration effortlessly to uncover body patterns.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="icon-wrapper">📊</div>
+                    <h3>Interactive Visual Analytics</h3>
+                    <p>Track your health trends, hydration history, and cycle logs over time through dynamic charts.</p>
+                </div>
+
+                <div class="feature-card glass-card">
+                    <div class="icon-wrapper">🔒</div>
+                    <h3>100% Local Data Privacy</h3>
+                    <p>Your health data is stored securely on your local device only. Zero tracking, zero external servers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Quick Action Section -->
+        <section class="quick-action-section glass-panel mt-5">
+            <div class="quick-action-content">
+                <div class="quick-action-text">
+                    <h2>📝 Quick Daily Log</h2>
+                    <p>How are you feeling today? Tap to record your mood and symptoms in seconds.</p>
+                </div>
+                <div class="quick-action-buttons">
+                    <a href="log.html" class="mood-btn">😊 Happy</a>
+                    <a href="log.html" class="mood-btn">⚡ Energetic</a>
+                    <a href="log.html" class="mood-btn">😴 Tired</a>
+                    <a href="log.html" class="btn-primary">Full Log ➔</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Highlights -->
+        <section class="highlights-section mt-5">
+            <div class="section-title">
+                <h2>🌸 Why Users Love FlowCare</h2>
+                <p>Simple, privacy-first, and beautifully intuitive.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="glass-card testimonial-card">
+                    <p class="quote">"Finally a cycle tracker that doesn't sell my data. Simple, beautiful, and completely private."</p>
+                    <div class="user-info">
+                        <span class="user-avatar">👩‍💻</span>
+                        <div>
+                            <strong>Privacy Advocate</strong>
+                            <span class="sub-label">FlowCare User</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card testimonial-card">
+                    <p class="quote">"The calendar and analytics give me clear predictions for my cycle without complex setup."</p>
+                    <div class="user-info">
+                        <span class="user-avatar">🧘‍♀️</span>
+                        <div>
+                            <strong>Daily Tracker</strong>
+                            <span class="sub-label">FlowCare User</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card testimonial-card">
+                    <p class="quote">"Sleek dark mode design and clean charts make tracking symptoms something I actually enjoy."</p>
+                    <div class="user-info">
+                        <span class="user-avatar">🎨</span>
+                        <div>
+                            <strong>UI Enthusiast</strong>
+                            <span class="sub-label">FlowCare User</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call To Action (CTA) Banner -->
+        <section class="cta-banner glass-panel mt-5">
+            <div class="cta-content">
+                <h2>Ready to Take Control of Your Cycle?</h2>
+                <p>Start tracking your natural rhythm with complete data privacy today.</p>
+                <a href="tracker.html" class="btn-primary glow btn-large">Setup Your Cycle Metrics ➔</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🌸 FlowCare &copy; 2026. Private, Simple & Intelligent Cycle Tracking.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
